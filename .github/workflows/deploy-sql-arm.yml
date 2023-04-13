@@ -19,6 +19,10 @@ jobs:
               uses: azure/login@v1
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
+            - name: Create RG if needed
+              uses: azure/cli@v1
+              with:
+                inlineScript: az group create --name ${{ env.AZURE_RG }} --location westeurope
             - name: Deploy SQL Server ARM template
               id: deploy-sql-server
               uses: azure/arm-deploy@v1
